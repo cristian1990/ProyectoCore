@@ -1,0 +1,3 @@
+﻿
+Este proyecto se encarga de manejar la conexion y el acceso a la base de datos
+Tambien de la configuracion del API Fluent y los DbSet

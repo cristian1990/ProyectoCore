@@ -1,0 +1,5 @@
+﻿
+Este proyecto se encarga de manejar los EndPoint de la API de la aplicacion
+Tambien de la configuracion de los controladores, servicios y middleware
+Tiene refencia al proyecto Aplicacion, ya que ahi se maneja la logica de acceso a la data
+Tiene referencia al proyectoi de Seguridad

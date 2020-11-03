@@ -1,0 +1,4 @@
+﻿
+Este proyecto se encarga de crear y manejar JWT
+Tendra referencia hacia Aplicacion
+El proyecto WebAPI, tendra una referencia hacia este proyecto

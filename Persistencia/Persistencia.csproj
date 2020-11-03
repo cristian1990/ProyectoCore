@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20201022171807_AgregoUsuario.cs" />
+    <Compile Remove="Migrations\20201022171807_AgregoUsuario.Designer.cs" />
+    <Compile Remove="Migrations\20201022215700_AgregoUsuarioPass.cs" />
+    <Compile Remove="Migrations\20201022215700_AgregoUsuarioPass.Designer.cs" />
+    <Compile Remove="Migrations\20201022215926_AgregoUsuarioPass.cs" />
+    <Compile Remove="Migrations\20201022215926_AgregoUsuarioPass.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dominio\Dominio.csproj" />
+  </ItemGroup>
+
+</Project>

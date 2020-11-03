@@ -1,0 +1,3 @@
+﻿
+Este proyecto se encarga de manejar las reglas de negocio y la logica intermedia 
+Se conecta con el proyecto Persistencia, para que luego este se conecte a la Base de datos
