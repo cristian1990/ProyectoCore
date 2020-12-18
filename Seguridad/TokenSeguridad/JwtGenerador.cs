@@ -11,21 +11,23 @@ namespace Seguridad.TokenSeguridad
 {
     public class JwtGenerador : IJwtGenerador
     {
-        public string CrearToken(Usuario usuario/*, List<string> roles*/)
+        //Ingresamos como parametro el Usuario y la lista de Roles que van a convertirse en Claims dentro del Token
+        public string CrearToken(Usuario usuario, List<string> roles)
         {
-            //Claims: es la data del usuario que quiero compartir con el cliente
+            //Claims: Es la data del usuario que quiero compartir con el cliente
             var claims = new List<Claim>{
-                //Creo un nuevo Claim y agrego el usuario
+                //Creo un nuevo Claim y agrego el UserName del usuario
                 new Claim(JwtRegisteredClaimNames.NameId, usuario.UserName)
             };
 
-            //if (roles != null)
-            //{
-            //    foreach (var rol in roles)
-            //    {
-            //        claims.Add(new Claim(ClaimTypes.Role, rol));
-            //    }
-            //}
+            //Almacenamos los roles del usuario tambien en el Token, mediante los claims
+            if (roles != null) //Si tiene Roles
+            {
+                foreach (var rol in roles) //Recorro los roles que tiene
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, rol)); //Y los agrego el Claim
+                }
+            }
 
             //Creo las credenciales de acceso
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Mi palabra secreta"));

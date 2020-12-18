@@ -64,6 +64,10 @@ namespace Aplicacion.Seguridad
                 //Si el email existe en la BD, hacemos el login, pasando el usuario y el password
                 var resultado = await _signInManager.CheckPasswordSignInAsync(usuario, request.Password, false);
 
+                //Obtengo la lista de Roles del usuario
+                var resultadoRoles = await _userManager.GetRolesAsync(usuario);
+                var listaRoles = new List<string>(resultadoRoles); //Casteo de IList a List
+
                 if (resultado.Succeeded) //Si fue exitoso
                 {
                     //return usuario; //Retorno Todos los datos del usuario (No recomendable)
@@ -72,7 +76,7 @@ namespace Aplicacion.Seguridad
                     return new UsuarioData
                     {
                         NombreCompleto = usuario.NombreCompleto,
-                        Token = _jwtGenerador.CrearToken(usuario),
+                        Token = _jwtGenerador.CrearToken(usuario, listaRoles),
                         Username = usuario.UserName,
                         Email = usuario.Email,
                         Imagen = null

@@ -35,12 +35,17 @@ namespace Aplicacion.Seguridad
                 //Busco userName actual en la BD
                 var usuario = await _userManager.FindByNameAsync(_usuarioSesion.ObtenerUsuarioSesion());
 
+                //Obtengo la lista de Roles del usuario actual
+                var resultadoRoles = await _userManager.GetRolesAsync(usuario);
+                var listaRoles = new List<string>(resultadoRoles); //Casteo de IList a List
+
+
                 //Retorno una instancia de UsuarioData
                 return new UsuarioData
                 {
                     NombreCompleto = usuario.NombreCompleto,
                     Username = usuario.UserName,
-                    Token = _jwtGenerador.CrearToken(usuario),
+                    Token = _jwtGenerador.CrearToken(usuario, listaRoles),
                     Email = usuario.Email
                 };
             }

@@ -55,7 +55,6 @@ namespace Aplicacion.Seguridad
                 _jwtGenerador = jwtGenerador;
             }
 
-
             public async Task<UsuarioData> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
                 //Verificamos si el Email del usuario existe
@@ -91,7 +90,7 @@ namespace Aplicacion.Seguridad
                     return new UsuarioData
                     {
                         NombreCompleto = usuario.NombreCompleto,
-                        Token = _jwtGenerador.CrearToken(usuario),
+                        Token = _jwtGenerador.CrearToken(usuario, null), //Pongo null porque recien se crea el usuario y no va a terner roles
                         Username = usuario.UserName,
                         Email = usuario.Email
                     };

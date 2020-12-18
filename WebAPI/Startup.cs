@@ -109,6 +109,13 @@ namespace WebAPI
             services.AddScoped<IPaginacion, PaginacionRepositorio>();
             //===============================
 
+            //==== Agregamos los CORS, para que la API pueda ser consumida por los clientes ====
+            services.AddCors(o => o.AddPolicy("corsApp", builder => {
+                //Permitimos cualquier origen (cliente), metodo de HTTP y Header
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            }));
+            //===============================
+
             //==== Agregamos el FluentValidation, Core Identity y Authorize ====
             //Configuro que los metodos de los controller tengan la autorizacion (esten logueados), antes de procesar un request de un cliente
             //Hacemos la configuracion para indicar que archivo debe validar
@@ -121,6 +128,10 @@ namespace WebAPI
             var builder = services.AddIdentityCore<Usuario>();
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
 
+            identityBuilder.AddRoles<IdentityRole>(); //Para poder crear Roles
+            //Para incluir la data de los Roles, dentro del Token de seguridad
+            identityBuilder.AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<Usuario, IdentityRole>>();
+
             identityBuilder.AddEntityFrameworkStores<CursosOnlineContext>(); //El contexto
             identityBuilder.AddSignInManager<SignInManager<Usuario>>(); //Administrador de acceso
             services.TryAddSingleton<ISystemClock, SystemClock>();
@@ -130,6 +141,10 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //==== Agrego Middleware para CORS ====
+            app.UseCors("corsApp");
+            //===============================
+
             //==== Agrego mi Middleware ====
             app.UseMiddleware<ManejadorErrorMiddleware>();
             //===============================

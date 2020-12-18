@@ -5,6 +5,7 @@ using Aplicacion.Instructores;
 using MediatR;
 using System;
 using Persistencia.DapperConexion.Instructor;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -12,6 +13,8 @@ namespace WebAPI.Controllers
     [ApiController]
     public class InstructorController : MiControllerBase
     {
+        //Solo los usuarios que envien el token con el Rol Admin, van apoder ingresar a esta accion
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<List<InstructorModel>>> ObtenerInstructores()
         {
